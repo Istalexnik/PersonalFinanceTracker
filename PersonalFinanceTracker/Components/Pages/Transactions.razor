@@ -1,0 +1,29 @@
+﻿@page "/transactions"
+@rendermode InteractiveServer
+@inject Data.TransactionService TransactionService
+
+<h3>Transaction History</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in TransactionService.GetTransactions())
+        {
+            <tr>
+                <td>@transaction.Id</td>
+                <td>@transaction.Amount</td>
+                <td>@transaction.Category</td>
+                <td>@transaction.Date.ToShortDateString()</td>
+                <td>@transaction.Type</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,50 @@
+﻿@page "/add-transaction"
+@rendermode InteractiveServer
+@inject Data.TransactionService TransactionService
+
+<h3>Add Transaction</h3>
+
+<div class="form-group">
+    <label>Amount</label>
+    <input type="number" @bind="amount" class="form-control" />
+</div>
+<div class="form-group">
+    <label>Category</label>
+    <input @bind="category" class="form-control" placeholder="e.g., Food, Rent" />
+</div>
+<div class="form-group">
+    <label>Date</label>
+    <input type="date" @bind="date" class="form-control" />
+</div>
+<div class="form-group">
+    <label>Type</label>
+    <select @bind="type" class="form-control">
+        <option value="Income">Income</option>
+        <option value="Expense">Expense</option>
+    </select>
+</div>
+<button @onclick="SubmitTransaction" class="btn btn-primary">Add Transaction</button>
+
+@code {
+    private decimal amount;
+    private string category = string.Empty;
+    private DateTime date = DateTime.Now;
+    private string type = "Expense";
+
+    private void SubmitTransaction()
+    {
+        TransactionService.AddTransaction(new Models.Transaction
+            {
+                Amount = amount,
+                Category = category,
+                Date = date,
+                Type = type
+            });
+
+        // Reset form fields
+        amount = 0;
+        category = string.Empty;
+        date = DateTime.Now;
+        type = "Expense";
+    }
+}

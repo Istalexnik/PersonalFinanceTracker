@@ -1,0 +1,18 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@inject Data.TransactionService TransactionService
+
+<h3>Finance Summary</h3>
+
+<p>Total Income: @TransactionService.GetTotalIncome()</p>
+<p>Total Expenses: @TransactionService.GetTotalExpenses()</p>
+<p>Balance: @(TransactionService.GetTotalIncome() - TransactionService.GetTotalExpenses())</p>
+
+<h3>Recent Transactions</h3>
+<div>
+<a href="/add-transaction" class="btn btn-primary">Add New Transaction</a>
+</div>
+    <div>
+<a href="/transactions" class="btn btn-secondary ml-2">View All Transactions</a>
+</div>
+
